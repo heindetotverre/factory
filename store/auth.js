@@ -8,7 +8,6 @@ export const state = () => ({
 
 export const actions = {
   async auth ({dispatch}, data) {
-    console.log(data)
     const salt = bcrypt.genSaltSync(10)
     const hash = bcrypt.hashSync(data.values.Password, salt)
     const makeToken = uuidv4
