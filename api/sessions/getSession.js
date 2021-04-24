@@ -1,6 +1,6 @@
 const getSession = async (client, payload, res) => {
   try {
-    const db = client.db('Factory')
+    const db = client.db(process.env.DB_NAME)
     const collection = db.collection(payload.collection)
     const sessionResult = await collection.findOne({ tokenId:payload.values.tokenId })
     if (sessionResult) {
