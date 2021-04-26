@@ -6,19 +6,18 @@
     <input
       :class="`control__input ${setClasses}`"
       v-if="inputType === 'input'"
-      :value="value"
-      :type="type"
+      v-model="input"
       :required="required"
       :disabled="disabled"
-      @input="$emit('input', $event.target.value)">
+      @input="$emit('input', input)">
     <textarea
       :class="`control__textarea ${setClasses}`"
       v-if="inputType === 'textarea'"
       rows="10"
-      :value="value"
+      v-model="input"
       :required="required"
       :disabled="disabled"
-      @input="$emit('input', $event.target.value)"></textarea>
+      @input="$emit('input', input)"></textarea>
   </div>
 </template>
 
@@ -49,6 +48,20 @@ export default {
     disabled: {
       type: Boolean,
       default: false
+    },
+    preset: {
+      type: String,
+      default: ''
+    }
+  },
+  data () {
+    return {
+      input: ''
+    }
+  },
+  mounted () {
+    if (this.preset) {
+      this.input = this.preset
     }
   }
 }

@@ -130,6 +130,7 @@
         "validators": [
           "notempty"
         ],
+        "preset": true,
         "type": "checkbox"
       },
       "isNavigationItem": {
@@ -140,6 +141,7 @@
         "validators": [
           "notempty"
         ],
+        "preset": true,
         "type": "checkbox"
       },
       "seoTitle": {
@@ -150,6 +152,7 @@
         "validators": [
           "notempty"
         ],
+        "preset": "This is a title",
         "type": "text"
       },
       "seoDecription": {
@@ -161,7 +164,8 @@
         "validators": [
           "notempty",
           "noscript"
-        ]
+        ],
+        "preset": "This is a description"
       },
       "layout": {
         "label": "Layout of the page",

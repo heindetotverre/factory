@@ -14,20 +14,21 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'PageCreator',
   layout: 'factory',
-    data () {
+  data () {
     return {
       busy: false,
-      formName: 'FactoryCreatePage',
+      fields: mapping('forms', 'FactoryCreatePage'),
       updatedForm: {}
     }
+  },
+  mounted () {
+    const newFields = this.fields
+    newFields.fields.isHomePage.disabled = !this.getHomePage
   },
   computed: {
     ...mapGetters({
       getHomePage: 'pages/getHomePage'
-    }),
-    fields () {
-      return mapping('forms', this.formName)
-    }
+    })
   },
   methods: {
     async handleSubmit (data) {

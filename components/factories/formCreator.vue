@@ -2,15 +2,16 @@
   <form class="form__creator"
     @submit.prevent="excecuteForm()">
     <component v-for="field in formSchema.fields"
-      :key="field.id"
+      :key="field.name"
       :is="field.component"
       :type="field.type"
-      :inputType="field.inputType || 'input'"
+      :inputType="field.inputType"
       v-model="formValues[field.name]"
       :required="field.required"
       :disabled="field.disabled || false"
       :list="field.items"
-      :setClasses="setClasses(field)">
+      :preset="field.preset"
+      :setClasses="setClasses(field.classes)">
       <label>{{ field.label }}</label>
     </component>
     <button v-for="button in formSchema.buttons"
@@ -52,9 +53,7 @@ export default {
   },
   watch: {
     updatedForm () {
-      if (this.updatedForm) {
-        this.formValues = this.updatedForm
-      }
+      this.formValues = this.updatedForm
     }
   },
   methods: {
@@ -66,7 +65,7 @@ export default {
       this.formValues = {}
     },
     setClasses (data) {
-      return 'test'
+      
     }
   }
 }

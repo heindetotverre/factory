@@ -9,8 +9,10 @@
       @focus="focus()"
       :required="required"
       :disabled="disabled"
-      type="text">
-    <div class="control__select--list" v-if="showList">
+      :type="type">
+    <div v-if="showList"
+      class="control__select--list"
+      ref="list">
       <div
         class="control__select--item"
         v-for="item in list"
@@ -26,6 +28,10 @@ export default {
     setClasses: {
       type: String,
       default: ''
+    },
+    type: {
+      type: String,
+      default: 'text'
     },
     value: {
       type: String,

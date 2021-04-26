@@ -5,8 +5,8 @@
     </label>
     <input
       :class="`control__checkbox ${setClasses}`"
-      :value="value"
-      @input="$emit('input', $event.target.checked)"
+      :checked="input"
+      @input="onInput()"
       :type="type"
       :required="required"
       :disabled="disabled">
@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: 'uiButton',
+  name: 'uiCheckBox',
   props: {
     setClasses: {
       type: String,
@@ -35,6 +35,26 @@ export default {
     type: {
       type: String,
       default: 'text'
+    },
+    preset: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data () {
+    return {
+      input: false
+    }
+  },
+  mounted () {
+    if (this.preset) {
+      this.input = this.preset
+    }
+  },
+  methods: {
+    onInput () {
+      this.input = !this.input
+      this.$emit('input', this.input)
     }
   }
 }
