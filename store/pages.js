@@ -4,11 +4,16 @@ export const state = () => ({
 
 export const actions = {
   async pageCheck ({}, data) {
-    const result = await this.$axios.$post('/api/db', {
-      function: data.function,
-      collection: data.collection
-    })
-    return result
+    try {
+      const result = await this.$axios.$post('/api/db', {
+        function: data.function,
+        collection: data.collection
+      })
+      return result
+    } catch {
+      dispatch('log/setError', error, {root:true})
+      this.$router.push('/error')
+    }
   },
   setHome ({commit}, data) {
     commit('SET_PAGE', data)

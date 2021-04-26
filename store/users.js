@@ -6,29 +6,26 @@ export const actions = {
   clearUser ({commit}) {
     commit('CLEAR_USER')
   },
-  async setUserByToken ({dispatch, commit}, data) {
+  async setUserByToken ({dispatch, commit}, token) {
     try {
-      const sessionResult = await this.$axios.$post('/api/db', {
+      const sessionResultByToken = await this.$axios.$post('/api/db', {
         function: 'getSession',
         collection: 'Sessions',
         values: {
-          ...data
+          ...token
         }
       })
-      if (sessionResult.session) {
-        const userResult = await this.$axios.$post('/api/db', {
+      if (sessionResultByToken.session) {
+        const userResultBySession = await this.$axios.$post('/api/db', {
           function: 'getUserByUserId',
           collection: 'Users',
           values: {
-            userId: sessionResult.session.userId
+            userId: sessionResultByToken.session.userId
           }
         })
         commit('SET_USER', {
-          initialUserInfo: {
-            tokenId: data
-          },
           fetchedUser: {
-            ...JSON.parse(userResult.user)
+            ...JSON.parse(userResultBySession.user)
           }
         })
       } else {
@@ -44,16 +41,16 @@ export const actions = {
 export const mutations = {
   SET_USER (state, data) {
     state.userInfo = {
+      userId: data.fetchedUser.UserId,
       email: data.fetchedUser.Email,
       firstName: data.fetchedUser.FirstName,
       lastName: data.fetchedUser.LastName,
       websiteName: data.fetchedUser.WebsiteName,
-      validationStatus: data.fetchedUser.Unvalidated,
+      unvalidated: data.fetchedUser.Unvalidated,
       accountCreated: data.fetchedUser.Created
     }
   },
   CLEAR_USER (state) {
-    state.userId = null
     state.userInfo = null
   }
 }
