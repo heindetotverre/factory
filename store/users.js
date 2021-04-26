@@ -1,5 +1,6 @@
 export const state = () => ({
-  activeUser: null
+  activeUser: null,
+  userInfo: null
 })
 
 export const actions = {
@@ -70,13 +71,15 @@ export const mutations = {
   SET_USER (state, data) {
     state.activeUser = {
       userId: data.fetchedUser.UserId,
-      userInfo: {
-        firstName: data.fetchedUser.FirstName,
-        lastName: data.fetchedUser.LastName,
-        validationStatus: data.fetchedUser.Unvalidated,
-        accountCreated: data.fetchedUser.Created
-      },
       tokenId: data.initialUserInfo.tokenId
+    }
+    state.userInfo = {
+      email: data.fetchedUser.Email,
+      firstName: data.fetchedUser.FirstName,
+      lastName: data.fetchedUser.LastName,
+      websiteName: data.fetchedUser.WebsiteName,
+      validationStatus: data.fetchedUser.Unvalidated,
+      accountCreated: data.fetchedUser.Created
     }
   },
   CLEAR_USER (state) {
@@ -87,5 +90,8 @@ export const mutations = {
 export const getters = {
   getUser: (state) => {
     return state.activeUser
+  },
+  getUserInfo: (state) => {
+    return state.userInfo
   }
 }

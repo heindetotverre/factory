@@ -1,0 +1,9 @@
+{
+  "layouts": {
+    "default": {
+      "name": "default",
+      "hasNavigation": true,
+      "hasFooter": true
+    }
+  }
+}

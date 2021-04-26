@@ -1,0 +1,15 @@
+{
+  "layouts": {
+    "listName": "layouts",
+    "content": [
+      {
+        "name": "default",
+        "label": "Default layout"
+      },
+      {
+        "name": "landingpage",
+        "label": "Landing page layout"
+      }
+    ]
+  }
+}

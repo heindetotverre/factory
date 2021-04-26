@@ -13,8 +13,7 @@
 </template>
 
 <script>
-import {mapFields} from '@/plugins/formFields.js'
-
+import {mapping} from '@/plugins/mapping.js'
 export default {
   name: 'FactoryAuth',
   layout: 'factory',
@@ -28,7 +27,7 @@ export default {
   },
   computed: {
     fields () {
-      return mapFields(this.formName)
+      return mapping('forms', this.formName)
     }
   },
   methods: {

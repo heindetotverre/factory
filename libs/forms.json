@@ -1,0 +1,185 @@
+{
+  "FactoryAuth": {
+    "name": "FactoryAuth",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "name": "Email",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "email"
+        ],
+        "type": "email"
+      },
+      "password": {
+        "label": "Password",
+        "name": "Password",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "password"
+        ],
+        "type": "password"
+      }
+    },
+    "buttons": {
+      "login": {
+        "text": "Login"
+      }
+    }
+  },
+  "FactoryRegister": {
+    "name": "FactoryRegister",
+    "fields": {
+      "email": {
+        "label": "Email",
+        "name": "Email",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "email"
+        ],
+        "type": "email"
+      },
+      "password": {
+        "label": "Password",
+        "name": "Password",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "password"
+        ],
+        "type": "password"
+      },
+      "passwordAgain": {
+        "label": "Password again",
+        "name": "PasswordAgain",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "password"
+        ],
+        "type": "password"
+      },
+      "firstName": {
+        "label": "First name",
+        "name": "FirstName",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "nonumbers"
+        ],
+        "type": "text"
+      },
+      "lastName": {
+        "label": "Last name",
+        "name": "LastName",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "nonumbers"
+        ],
+        "type": "text"
+      },
+      "websiteName": {
+        "label": "Website name",
+        "name": "WebsiteName",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "notempty"
+        ],
+        "type": "text"
+      },
+      "billingInfo": {
+        "label": "Billing info",
+        "name": "BillingInfo",
+        "component": "uiInput",
+        "inputType": "textarea",
+        "validators": [
+          "notempty",
+          "noscript"
+        ]
+      }
+    },
+    "buttons": {
+      "register": {
+        "text": "Register"
+      }
+    }
+  },
+  "FactoryCreatePage": {
+    "name": "FactoryCreatePage",
+    "fields": {
+      "Url": {
+        "label": "Enter page slug/url",
+        "name": "Url",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "notempty"
+        ],
+        "type": "text"
+      },
+      "isHomePage": {
+        "label": "Make this page the homepage",
+        "name": "IsHomePage",
+        "required": true,
+        "component": "uiCheckBox",
+        "validators": [
+          "notempty"
+        ],
+        "type": "checkbox"
+      },
+      "isNavigationItem": {
+        "label": "Make this page visible in the menu",
+        "name": "IsMenuItem",
+        "required": true,
+        "component": "uiCheckBox",
+        "validators": [
+          "notempty"
+        ],
+        "type": "checkbox"
+      },
+      "seoTitle": {
+        "label": "Title of the page",
+        "name": "Title",
+        "required": true,
+        "component": "uiInput",
+        "validators": [
+          "notempty"
+        ],
+        "type": "text"
+      },
+      "seoDecription": {
+        "label": "Description of the page",
+        "name": "Decription",
+        "required": true,
+        "component": "uiInput",
+        "inputType": "textarea",
+        "validators": [
+          "notempty",
+          "noscript"
+        ]
+      },
+      "layout": {
+        "label": "Layout of the page",
+        "name": "Layout",
+        "required": true,
+        "component": "uiSearchSelect",
+        "listKey": "layouts",
+        "items": [],
+        "validators": [
+          "notempty"
+        ],
+        "type": "text"
+      }
+    },
+    "buttons": {
+      "save": {
+        "text": "Save page"
+      }
+    }
+  }
+}

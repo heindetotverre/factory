@@ -6,14 +6,16 @@
     <input
       class="control__input"
       v-if="inputType === 'input'"
-      v-bind="$attrs"
       :value="value"
+      :type="type"
+      :required="required"
       @input="$emit('input', $event.target.value)">
     <textarea
       class="control__textarea"
       v-if="inputType === 'textarea'"
       rows="10"
       :value="value"
+      :required="required"
       @input="$emit('input', $event.target.value)"></textarea>
   </div>
 </template>
@@ -26,9 +28,17 @@ export default {
       type: String,
       default: 'input'
     },
+    type: {
+      type: String,
+      default: 'text'
+    },
     value: {
       type: String,
-      default: ''
+      default: null
+    },
+    required: {
+      type: Boolean,
+      default: false
     }
   }
 }

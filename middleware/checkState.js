@@ -1,4 +1,4 @@
-export default async ({store, redirect, req, route}) => {
+export default async ({store, redirect, req}) => {
   try {
     const result = await store.dispatch('pages/pageCheck', {
       function: 'pageCheck',

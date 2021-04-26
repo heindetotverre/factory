@@ -7,7 +7,8 @@
       :type="field.type"
       :inputType="field.inputType || 'input'"
       v-model="formValues[field.name]"
-      :required="field.required">
+      :required="field.required"
+      :list="field.items">
       <label>{{ field.label }}</label>
     </component>
     <button v-for="button in formSchema.buttons"
@@ -22,17 +23,17 @@ export default {
     formSchema: {
       type: Object,
       required: true,
-      name: {
-        type: String,
-        requird: true
+      buttons: {
+        type: Array,
+        required: true
       },
       fields: {
         type: Array,
         required: true
       },
-      buttons: {
-        type: Array,
-        required: true
+      name: {
+        type: String,
+        requird: true
       }
     },
     updatedForm: {
