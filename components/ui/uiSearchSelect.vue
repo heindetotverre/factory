@@ -4,10 +4,11 @@
       <slot />
     </label>
     <input
-      class="control__input"
+      :class="`control__input ${setClasses}`"
       :value="input"
       @focus="focus()"
       :required="required"
+      :disabled="disabled"
       type="text">
     <div class="control__select--list" v-if="showList">
       <div
@@ -35,6 +36,10 @@ export default {
       required: true
     },
     required: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }

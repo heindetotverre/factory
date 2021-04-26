@@ -1,36 +1,8 @@
 export const state = () => ({
-  activeUser: null,
   userInfo: null
 })
 
 export const actions = {
-  async setUser ({dispatch, commit}, initialUserInfo) {
-    try {
-      const userResult = await this.$axios.$post('/api/db', {
-        function: 'getUser',
-        collection: 'Users',
-        values: {
-          email: initialUserInfo.email
-        }
-      })
-      if (userResult) {
-        const fetchedUser = JSON.parse(userResult.user)
-        await this.$axios.$post('/api/db', {
-          function: 'setSession',
-          collection: 'Sessions',
-          values: {
-            userId: fetchedUser.UserId,
-            tokenId: initialUserInfo.tokenId,
-            tokenExpires: initialUserInfo.expires
-          }
-        })
-        commit('SET_USER', {initialUserInfo, fetchedUser})
-      }
-    } catch (error) {
-      dispatch('log/setError', error, {root:true})
-      this.$router.push('/error')
-    }
-  },
   clearUser ({commit}) {
     commit('CLEAR_USER')
   },
@@ -59,6 +31,8 @@ export const actions = {
             ...JSON.parse(userResult.user)
           }
         })
+      } else {
+        dispatch('auth/clearToken', {}, {root:true})
       }
     } catch (error) {
       dispatch('log/setError', error, {root:true})
@@ -69,10 +43,6 @@ export const actions = {
 
 export const mutations = {
   SET_USER (state, data) {
-    state.activeUser = {
-      userId: data.fetchedUser.UserId,
-      tokenId: data.initialUserInfo.tokenId
-    }
     state.userInfo = {
       email: data.fetchedUser.Email,
       firstName: data.fetchedUser.FirstName,
@@ -83,14 +53,12 @@ export const mutations = {
     }
   },
   CLEAR_USER (state) {
-    state.activeUser = null
+    state.userId = null
+    state.userInfo = null
   }
 }
 
 export const getters = {
-  getUser: (state) => {
-    return state.activeUser
-  },
   getUserInfo: (state) => {
     return state.userInfo
   }

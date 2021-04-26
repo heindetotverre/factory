@@ -5,6 +5,6 @@ export default async ({store, req, route, redirect}) => {
     redirect('/factory')
   }
   if (token && route.name === 'factory') {
-    redirect('/factory/floor')
+    redirect('/factory/dashboard')
   }
 }

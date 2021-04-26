@@ -57,7 +57,7 @@ export default {
       }
       if (authResult.function === 'login') {
         if (authResult.authorized) {
-          this.$router.push({ path: '/factory/floor', params: { from: 'login' } })
+          this.$router.push({ path: '/factory/dashboard', params: { from: 'login' } })
         } else {
             this.updatedForm = {
             ...data.values,

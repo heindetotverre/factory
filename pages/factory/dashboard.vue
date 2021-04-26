@@ -1,9 +1,9 @@
 <template>
-  <div class="factory factory__floor floor">
-    <h1>Welcome at the factory floor</h1>
+  <div class="factory factory__dashboard dashboard">
+    <h1>Welcome at the factory dashboard</h1>
     <button @click="logout">Logout</button>
     <button @click="gotToCreatePage">Create page</button>
-    <div class="floor__user" v-if="getUserInfo">
+    <div class="dashboard__user" v-if="getUserInfo">
       <ul class="user">
         <li class="user__item">
           <label class="label">Website name</label>
@@ -19,7 +19,7 @@
         </li>
       </ul>
     </div>
-    <div class="floor__pages" v-if="mapPages">
+    <div class="dashboard__pages" v-if="mapPages">
       <p class="text">pages:</p>
       <ul class="pages">
         <li class="pages__item">
@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-    <div class="floor__notification" v-else>
+    <div class="dashboard__notification" v-else>
       <p class="text">There are no pages. Please create a homepage</p>
     </div>
     <layoutSpinner v-if="!getUserInfo"></layoutSpinner>

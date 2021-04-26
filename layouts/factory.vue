@@ -9,11 +9,11 @@ export default {
   name: 'factory',
   middleware: 'checkToken',
   async created () {
-    await this.$store.dispatch('users/setUserByToken', this.isLoggedIn)
+    await this.$store.dispatch('users/setUserByToken', this.token)
   },
   computed: {
     ...mapGetters({
-      isLoggedIn: 'auth/readToken'
+      token: 'auth/readToken'
     })
   }
 }

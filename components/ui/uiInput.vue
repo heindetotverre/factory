@@ -4,18 +4,20 @@
       <slot />
     </label>
     <input
-      class="control__input"
+      :class="`control__input ${setClasses}`"
       v-if="inputType === 'input'"
       :value="value"
       :type="type"
       :required="required"
+      :disabled="disabled"
       @input="$emit('input', $event.target.value)">
     <textarea
-      class="control__textarea"
+      :class="`control__textarea ${setClasses}`"
       v-if="inputType === 'textarea'"
       rows="10"
       :value="value"
       :required="required"
+      :disabled="disabled"
       @input="$emit('input', $event.target.value)"></textarea>
   </div>
 </template>
@@ -24,6 +26,10 @@
 export default {
   name: 'uiInput',
   props: {
+    setClasses: {
+      type: String,
+      default: ''
+    },
     inputType: {
       type: String,
       default: 'input'
@@ -37,6 +43,10 @@ export default {
       default: null
     },
     required: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }

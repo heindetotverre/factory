@@ -10,6 +10,7 @@
 </template>
 <script>
 import {mapping} from '@/plugins/mapping.js'
+import { mapGetters } from 'vuex'
 export default {
   name: 'PageCreator',
   layout: 'factory',
@@ -21,6 +22,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      getHomePage: 'pages/getHomePage'
+    }),
     fields () {
       return mapping('forms', this.formName)
     }
@@ -31,10 +35,6 @@ export default {
     },
     goBack () {
       this.$router.push('/factory')
-    },
-    savePage () {
-      this.$router.push('/factory')
-      console.log('Page saved!')
     }
   }
 }

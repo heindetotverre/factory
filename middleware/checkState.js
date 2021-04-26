@@ -8,7 +8,7 @@ export default async ({store, redirect, req}) => {
       await store.dispatch('auth/checkToken', req)
       const token = store.getters['auth/readToken']
       if (token) {
-        redirect('/factory/floor')
+        redirect('/factory/dashboard')
       } else {
         redirect({ name: 'factory', params: { slug: 'homePage' } })
       }

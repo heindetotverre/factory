@@ -4,11 +4,12 @@
       <slot />
     </label>
     <input
-      class="control__checkbox"
+      :class="`control__checkbox ${setClasses}`"
       :value="value"
       @input="$emit('input', $event.target.checked)"
-      type="checkbox"
-      :required="required">
+      :type="type"
+      :required="required"
+      :disabled="disabled">
   </div>
 </template>
 <script>
@@ -26,6 +27,14 @@ export default {
     required: {
       type: Boolean,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    type: {
+      type: String,
+      default: 'text'
     }
   }
 }

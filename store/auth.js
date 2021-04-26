@@ -31,13 +31,25 @@ export const actions = {
             tokenId: makeToken(),
             expires: new Date().getTime() + 3600000
           }
-          const userInit = {
-            tokenId: token.tokenId,
-            email: data.values.Email,
-            expires: token.expires
+          const userResult = await this.$axios.$post('/api/db', {
+            function: 'getUser',
+            collection: 'Users',
+            values: {
+              email: data.values.Email
+            }
+          })
+          if (userResult) {
+            const fetchedUser = JSON.parse(userResult.user)
+            await this.$axios.$post('/api/db', {
+              function: 'setSession',
+              collection: 'Sessions',
+              values: {
+                ...token,
+                userId: fetchedUser.UserId
+              }
+            })
+            dispatch('storeToken', token)
           }
-          dispatch('users/setUser', userInit, {root:true})
-          dispatch('storeToken', token)
           return {
             ...result,
             authorized: true
@@ -72,6 +84,7 @@ export const actions = {
     }
   },
   storeToken({commit}, data) {
+    console.log()
     cookie.set('factoryToken', data)
     commit('STORE_TOKEN', data)
   },

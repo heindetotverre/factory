@@ -8,7 +8,9 @@
       :inputType="field.inputType || 'input'"
       v-model="formValues[field.name]"
       :required="field.required"
-      :list="field.items">
+      :disabled="field.disabled || false"
+      :list="field.items"
+      :setClasses="setClasses(field)">
       <label>{{ field.label }}</label>
     </component>
     <button v-for="button in formSchema.buttons"
@@ -62,6 +64,9 @@ export default {
         values: this.formValues
       })
       this.formValues = {}
+    },
+    setClasses (data) {
+      return 'test'
     }
   }
 }
