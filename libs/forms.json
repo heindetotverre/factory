@@ -25,7 +25,8 @@
     },
     "buttons": {
       "login": {
-        "text": "Login"
+        "text": "Login",
+        "classes": "button button--prim"
       }
     }
   },
@@ -105,7 +106,8 @@
     },
     "buttons": {
       "register": {
-        "text": "Register"
+        "text": "Register",
+        "classes": "button button--prim"
       }
     }
   },
@@ -182,7 +184,8 @@
     },
     "buttons": {
       "save": {
-        "text": "Save page"
+        "text": "Save page",
+        "classes": "button button--prim"
       }
     }
   }

@@ -1,0 +1,25 @@
+.factory {
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 0 @s;
+
+  &__login {
+    max-width: 300px;
+  }
+
+  &__create-page {
+    .text.spread {
+      background-color: @c1;
+      height: auto;
+      left: auto;
+      padding: @xs;
+      right: @xs;
+      top: @xs;
+      width: 180px;
+    }
+  }
+
+  .break(l; {
+    max-width: 992px;
+  });
+}

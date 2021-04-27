@@ -11,13 +11,17 @@
       :disabled="field.disabled || false"
       :list="field.items"
       :preset="field.preset"
-      :setClasses="setClasses(field.classes)">
+      :setClasses="setClasses(field.classes)"
+      @input="$emit('input', { field: field.name, value: formValues[field.name]})"
+      @blur="$emit('blur', { field: field.name })"
+      @focus="$emit('focus', { field: field.name, value: formValues[field.name] })">
       <label>{{ field.label }}</label>
     </component>
-    <button v-for="button in formSchema.buttons"
-      :key="button.id">
+    <uiButton v-for="button in formSchema.buttons"
+      :key="button.id"
+      :setClasses="setClasses(button.classes)">
       <span>{{ button.text }}</span>
-    </button>
+    </uiButton>
   </form>
 </template>
 <script>
@@ -53,6 +57,7 @@ export default {
   },
   watch: {
     updatedForm () {
+      console.log('test')
       this.formValues = this.updatedForm
     }
   },
@@ -65,7 +70,7 @@ export default {
       this.formValues = {}
     },
     setClasses (data) {
-      
+      return data ? `${data}` : ''
     }
   }
 }

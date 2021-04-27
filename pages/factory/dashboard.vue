@@ -1,21 +1,23 @@
 <template>
   <div class="factory factory__dashboard dashboard">
     <h1>Welcome at the factory dashboard</h1>
-    <button @click="logout">Logout</button>
-    <button @click="gotToCreatePage">Create page</button>
+    <uiButton @click="logout"
+      setClasses="button button--sec">Logout</uiButton>
+    <uiButton @click="gotToCreatePage"
+      setClasses="button button--prim">Create page</uiButton>
     <div class="dashboard__user" v-if="getUserInfo">
       <ul class="user">
         <li class="user__item">
           <label class="label">Website name</label>
-          <p class="text">{{ getUserInfo.websiteName }}</p>
+          <p class="value">{{ getUserInfo.websiteName }}</p>
         </li>
         <li class="user__item">
           <label class="label">Your name</label>
-          <p class="text">{{ getUserInfo.firstName }} {{ getUserInfo.lastName }}</p>
+          <p class="value">{{ getUserInfo.firstName }} {{ getUserInfo.lastName }}</p>
         </li>
         <li class="user__item">
           <label class="label">Your email</label>
-          <p class="text">{{ getUserInfo.email }}</p>
+          <p class="value">{{ getUserInfo.email }}</p>
         </li>
       </ul>
     </div>

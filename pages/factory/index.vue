@@ -1,13 +1,15 @@
 <template>
   <div class="factory factory__login login">
-    <div class="message message--error">
+    <div v-if="message" class="message message--error">
       <p>{{ message }}</p>
     </div>
     <FactoriesFormCreator
       :formSchema="fields"
       :updatedForm="updatedForm"
-      @excecuteForm="handleSubmit"/>
-    <uiButton @click="switchAuth">{{ formName === 'FactoryAuth' ? 'Register' : 'Login' }}</uiButton>
+      @excecuteForm="handleSubmit"
+      @input="inputActions"/>
+    <uiButton @click="switchAuth"
+      setClasses="button button--sec">{{ formName === 'FactoryAuth' ? 'Register' : 'Login' }}</uiButton>
     <layoutSpinner v-if="busy"></layoutSpinner>
   </div>
 </template>
@@ -67,6 +69,11 @@ export default {
         }
       }
       this.busy = false
+    },
+    inputActions(data) {
+      if (data) {
+        this.message = ''
+      }
     },
     switchAuth () {
       this.formName === 'FactoryAuth'

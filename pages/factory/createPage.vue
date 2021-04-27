@@ -1,11 +1,13 @@
 <template>
-  <div>
+  <div class="factory factory__create-page create-page">
     <h1>Create a page</h1>
-    <button @click="goBack">Back to dashboard</button>
+    <uiButton @click="goBack"
+      setClasses="button button--sec">Back to dashboard</uiButton>
     <FactoriesFormCreator
       :formSchema="fields"
       :updatedForm="updatedForm"
       @excecuteForm="handleSubmit"/>
+    <div v-if="!getHomePage" class="text spread">Because there is no homepage yet, this will be your homepage</div>
   </div>
 </template>
 <script>
@@ -23,7 +25,12 @@ export default {
   },
   mounted () {
     const newFields = this.fields
-    newFields.fields.isHomePage.disabled = !this.getHomePage
+    if (!this.getHomePage) {
+      newFields.fields.isHomePage.disabled = true
+      newFields.fields.Url.disabled = true
+      newFields.fields.Url.preset = '/'
+      newFields.fields.layout.preset = 'landingpage'
+    }
   },
   computed: {
     ...mapGetters({

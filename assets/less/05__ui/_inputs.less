@@ -1,0 +1,46 @@
+// inputs
+.control {
+  margin: @xxs 0;
+
+  &__label {
+    display: block;
+    font-weight: 700;
+  }
+
+  input[type="text"], 
+  textarea {
+    border: 1px solid @c1;
+    display: block;
+    padding: @xxs;
+    width: 100%;
+
+    &:focus {
+      background-color: @c2;
+      outline: none;
+    }
+  }
+
+  &__select {
+    &--list {
+      border: 1px solid #ccc;
+      border-top: 0;
+      display: block;
+      padding: 0.5rem;
+      width: 100%;
+    }
+
+    &--item {
+      cursor: pointer;
+
+      &:hover {
+        background-color: @c2;
+      }
+
+      & + & {
+        border-top: 1px solid #ccc;
+        margin-top: @xxs;
+        padding-top: @xxs;
+      }
+    }
+  }
+}

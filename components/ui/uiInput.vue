@@ -1,23 +1,29 @@
 <template>
-  <div class="control">
+  <div :class="`control control__${inputType} ${setClasses}`">
     <label class="control__label">
       <slot />
     </label>
     <input
-      :class="`control__input ${setClasses}`"
+      class="input"
       v-if="inputType === 'input'"
       v-model="input"
       :required="required"
       :disabled="disabled"
-      @input="$emit('input', input)">
+      @input="$emit('input', input)"
+      @focus="onFocus()"
+      @blur="onBlur()"
+      :type="type">
     <textarea
-      :class="`control__textarea ${setClasses}`"
+      class="textarea"
       v-if="inputType === 'textarea'"
       rows="10"
       v-model="input"
       :required="required"
       :disabled="disabled"
-      @input="$emit('input', input)"></textarea>
+      @input="$emit('input', input)"
+      @focus="onFocus()"
+      @blur="onBlur()"
+      :type="type"></textarea>
   </div>
 </template>
 
@@ -62,6 +68,22 @@ export default {
   mounted () {
     if (this.preset) {
       this.input = this.preset
+      this.$emit('input', this.preset)
+    }
+  },
+  watch: {
+    value () {
+      this.input = this.value
+    }
+  },
+  methods: {
+    onBlur () {
+      !this.input ? this.input = this.preset : ''
+    },
+    onFocus () {
+      if (this.input === this.preset) {
+        this.input = ''
+      }
     }
   }
 }

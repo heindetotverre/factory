@@ -1,10 +1,10 @@
 <template>
-  <div class="control">
+  <div class="control control__checkbox">
     <label class="control__label">
       <slot />
     </label>
     <input
-      :class="`control__checkbox ${setClasses}`"
+      :class="`checkbox ${setClasses}`"
       :checked="input"
       @input="onInput()"
       :type="type"
@@ -49,6 +49,7 @@ export default {
   mounted () {
     if (this.preset) {
       this.input = this.preset
+      this.$emit('input', this.preset)
     }
   },
   methods: {

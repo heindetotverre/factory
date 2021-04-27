@@ -21,11 +21,12 @@ export const actions = {
             Password: hash
           }
         })
-        if (data.source === 'register') {
-          console.log(result)
-        }
         if (!result.authorized || (result.hash && !bcrypt.compareSync(data.values.Password, result.hash))) {
-          return result
+          return {
+            function: 'login',
+            message: 'Login was unsuccesfull',
+            authorized: false
+          }
         } else {
           const token = {
             tokenId: makeToken(),

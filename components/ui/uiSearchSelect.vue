@@ -1,6 +1,6 @@
 <template>
-  <div class="control">
-    <label class="control__select">
+  <div class="control control__select">
+    <label class="control__label">
       <slot />
     </label>
     <input
@@ -48,12 +48,25 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    }
+    },
+    preset: {
+      type: String,
+      default: ''
+    }   
   },
   data () {
     return {
       input: '',
       showList: false
+    }
+  },
+  mounted () {
+    if (this.preset) {
+      const preset = this.list.find(i => {
+        return i.name === this.preset
+      })
+      this.input = preset.label
+      this.$emit('input', preset.name)
     }
   },
   methods: {
