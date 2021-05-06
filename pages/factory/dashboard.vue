@@ -5,6 +5,9 @@
       setClasses="button button--sec">Logout</uiButton>
     <uiButton @click="gotToCreatePage"
       setClasses="button button--prim">Create page</uiButton>
+    <uiButton @click="goToHome"
+      v-if="getHomePage"
+      setClasses="button button--sec">Go to home</uiButton>
     <div class="dashboard__user" v-if="getUserInfo">
       <ul class="user">
         <li class="user__item">
@@ -42,6 +45,7 @@ export default {
   name: 'factoryDashboard',
   computed: {
     ...mapGetters({
+      getHomePage: 'pages/getHomePage',
       getUserInfo: 'users/getUserInfo'
     }),
     mapPages () {
@@ -55,6 +59,9 @@ export default {
     },
     gotToCreatePage () {
       this.$router.push('/factory/createPage')
+    },
+    goToHome () {
+      this.$router.push('/')
     }
   }
 }

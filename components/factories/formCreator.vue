@@ -57,7 +57,6 @@ export default {
   },
   watch: {
     updatedForm () {
-      console.log('test')
       this.formValues = this.updatedForm
     }
   },

@@ -4,10 +4,11 @@
     <uiButton @click="goBack"
       setClasses="button button--sec">Back to dashboard</uiButton>
     <FactoriesFormCreator
-      :formSchema="fields"
+      :formSchema="form"
       :updatedForm="updatedForm"
       @excecuteForm="handleSubmit"/>
-    <div v-if="!getHomePage" class="text spread">Because there is no homepage yet, this will be your homepage</div>
+    <div v-if="!getHomePage" class="text spread" :class="error ? 'error' : ''">{{ message }}</div>
+    <layoutSpinner v-if="busy"></layoutSpinner>
   </div>
 </template>
 <script>
@@ -19,17 +20,18 @@ export default {
   data () {
     return {
       busy: false,
-      fields: mapping('forms', 'FactoryCreatePage'),
+      error: false,
+      form: mapping('forms', 'FactoryCreatePage'),
+      message: !this.getHomePage ? 'Because there is no homepage yet, this will be your homepage' : '',
       updatedForm: {}
     }
   },
   mounted () {
-    const newFields = this.fields
     if (!this.getHomePage) {
-      newFields.fields.isHomePage.disabled = true
-      newFields.fields.Url.disabled = true
-      newFields.fields.Url.preset = '/'
-      newFields.fields.layout.preset = 'landingpage'
+      this.form.fields.isHomePage.disabled = true
+      this.form.fields.Url.disabled = true
+      this.form.fields.Url.preset = '/'
+      this.form.fields.layout.preset = 'landingpage'
     }
   },
   computed: {
@@ -39,7 +41,27 @@ export default {
   },
   methods: {
     async handleSubmit (data) {
-      console.log(data)
+      this.busy = true
+      try {
+        const createPageResult = await this.$store.dispatch('pages/createPage', {
+          function: 'createPage',
+          collection: 'Pages',
+          values: data.values
+        })
+        if (createPageResult.page) {
+          this.$router.push('/admin')
+        }
+        if (createPageResult.response.status === 500) {
+          this.error = true
+          this.message = `Database error: Status: ${createPageResult.response.status}. Message: ${createPageResult.response.data.message}`
+          this.updatedForm = {
+            ...data.values,
+          }
+        }
+      } catch (error) {
+        this.message = error.message
+      }
+      this.busy = false
     },
     goBack () {
       this.$router.push('/factory')

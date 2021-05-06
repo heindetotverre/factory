@@ -8,7 +8,6 @@ const removeSession = async (client, res) => {
         const now = new Date().getTime()
         if (session.tokenExpires < now) {
           await collection.deleteOne({ tokenId:session.tokenId })
-          console.log('deleted session')
         }
       }
     }

@@ -15,6 +15,16 @@ app.post('/db', (req, res) => {
 const dbHandler = async (req, res) => {
   const payload = req.body
   const client = await connect(res)
+  const functions = [
+    'pageCheck',
+    'login',
+    'login',
+    'register',
+    'getUserByUserId',
+    'getUser',
+    'setSession',
+    'getSession'
+  ]
 
   if (!client) {
     return
@@ -35,6 +45,10 @@ const dbHandler = async (req, res) => {
   if (payload.function === 'setSession'
     || payload.function === 'getSession') {
     await session(client, payload, res)
+  }
+
+  if (!functions.includes(payload.function) || !payload.function) {
+    res.status(500).json({ message: 'no function found'})
   }
 
   if (client) {

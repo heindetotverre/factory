@@ -85,7 +85,6 @@ export const actions = {
     }
   },
   storeToken({commit}, data) {
-    console.log()
     cookie.set('factoryToken', data)
     commit('STORE_TOKEN', data)
   },
@@ -94,36 +93,42 @@ export const actions = {
     cookie.remove('factoryToken')
     commit('CLEAR_TOKEN')
   },
-  checkToken({dispatch}, req) {
-    try {
-      let token = ''
-      if (req && req.headers.cookie) {
-        token = JSON.parse(decodeURIComponent(
-          req.headers.cookie.split(';')
-          .find(c => c.trim().startsWith('factoryToken'))
-          .split('=')[1]
-        ))
-      } 
-      if (cookie.get('factoryToken')) {
-        token = JSON.parse(decodeURIComponent(cookie.get('factoryToken')))
-      }
-      if (token) {
-        const now = new Date().getTime()
-        if (token.expires < now) {
-          dispatch('clearToken')
-          return
-        } else {
-          dispatch('users/setUserByToken', token, {root:true})
-          dispatch('storeToken', {
-            ...token,
-            expires: (new Date().getTime() + 3600000)
-          })
+  checkToken({dispatch, getters, rootGetters}, req) {
+    if (!getters.readToken) {
+      try {
+        let token = false
+        if (req && req.headers.cookie) {
+          token = JSON.parse(decodeURIComponent(
+            req.headers.cookie.split(';')
+            .find(c => c.trim().startsWith('factoryToken'))
+            .split('=')[1]
+          ))
+        } 
+        if (cookie.get('factoryToken')) {
+          token = JSON.parse(decodeURIComponent(cookie.get('factoryToken')))
         }
-        return token
+        if (token) {
+          const now = new Date().getTime()
+          if (token.expires < now) {
+            dispatch('clearToken')
+            return
+          } else {
+            dispatch('users/setUserByToken', token, {root:true})
+            dispatch('storeToken', {
+              ...token,
+              expires: (new Date().getTime() + 3600000)
+            })
+          }
+          return token
+        }
+      } catch (error) {
+        dispatch('log/setError', error, {root:true})
+        this.$router.push('/error')
       }
-    } catch (error) {
-      dispatch('log/setError', error, {root:true})
-      this.$router.push('/error')
+    } else {
+      if (!rootGetters['users/getUserInfo']) {
+        dispatch('users/setUserByToken', getters.readToken, {root:true})
+      }
     }
   }
 }

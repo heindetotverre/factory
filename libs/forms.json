@@ -138,7 +138,7 @@
       "isNavigationItem": {
         "label": "Make this page visible in the menu",
         "name": "IsMenuItem",
-        "required": true,
+        "required": false,
         "component": "uiCheckBox",
         "validators": [
           "notempty"

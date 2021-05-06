@@ -28,8 +28,6 @@ export const actions = {
             ...JSON.parse(userResultBySession.user)
           }
         })
-      } else {
-        dispatch('auth/clearToken', {}, {root:true})
       }
     } catch (error) {
       dispatch('log/setError', error, {root:true})
